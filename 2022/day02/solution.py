@@ -12,7 +12,7 @@ products = {
     ('C', 'Z'): 3,
 }
 
-products_second = {
+products_2 = {
     ('A', 'Y'): ('A', 'X'),
     ('B', 'Y'): ('B', 'Y'),
     ('C', 'Y'): ('C', 'Z'),
@@ -27,23 +27,19 @@ products_second = {
 
 def part_1(file: str) -> int:
     with open(file, mode="r") as f:
-        accum = 0
-        for line in f:
-            elf_shot, my_shot = line.split()
-            accum += scores.get(my_shot)
-            accum += products.get((elf_shot, my_shot))
-        return accum
+        return sum(
+            scores.get(me) + products.get((elf, me))
+            for elf, me in map(str.split, f.readlines())
+        )
 
 
 def part_2(file: str) -> int:
     with open(file, mode='r') as f:
-        accum = 0
-        for line in f:
-            elf_shot, my_shot = line.split()
-            a, b = products_second.get((elf_shot, my_shot))
-            accum += products.get((a, b))
-            accum += scores.get(b)
-        return accum
+        return sum(
+            products.get(r := products_2.get((elf, me))) + scores.get(r[1])
+            for elf, me in map(str.split, f.readlines())
+        )
+
 
 print(part_1("input.txt")) # 13924
 print(part_2("input.txt")) # 13448
