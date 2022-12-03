@@ -26,5 +26,5 @@ def part_2(file: str) -> int:
     return sum(heapq.nlargest(3, list_accum))
 
 
-print(part_1("input.txt"))
-print(part_2("input.txt"))
+print(part_1("input.txt")) # 68442
+print(part_2("input.txt")) # 204837
