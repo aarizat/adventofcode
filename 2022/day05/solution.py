@@ -23,6 +23,7 @@ def part_2(file) -> str:
         for _ in range(m):
             tmp.appendleft(stacks[f-1].pop())
         stacks[t-1].extend(tmp)
+
     return "".join(stack.pop() for stack in stacks)
 
 
