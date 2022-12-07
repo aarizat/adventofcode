@@ -1,12 +1,12 @@
 def part_1(file) -> int:
     text = file.readline()
-    if any(len(set(text[i:(r := i+4)])) == 4 for i in range(0, len(text))):
+    if any(len(set(text[i:(r := i+4)])) == 4 for i in range(len(text))):
         return r
 
 
 def part_2(file) -> int:
     text = file.readline()
-    if any(len(set(text[i:(r := i+14)])) == 14 for i in range(0, len(text))):
+    if any(len(set(text[i:(r := i+14)])) == 14 for i in range(len(text))):
         return r
 
 f = open('input.txt')
