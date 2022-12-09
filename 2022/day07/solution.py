@@ -31,7 +31,7 @@ def part_2(file) -> int:
     return min(size for size in dirs.values() if size >= 30000000 - (70000000-dirs[Path("/")]))
 
 
-f = open('input.txt')
+f = open('input.txt') # 1306611
 print(part_1(f))
-f = open('input.txt')
+f = open('input.txt') # 13210366
 print(part_2(f))
