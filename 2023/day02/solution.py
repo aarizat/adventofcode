@@ -1,8 +1,13 @@
+import re
+
+
 bag_cubes = {
     'red': 12,
     'green': 13,
     'blue': 14,
 }
+
+color_pattern = r'\d+ (?:blue|red|green)'
 
 def read_input(path):
     with open(path) as f:
@@ -14,11 +19,10 @@ def part_1():
     total = 0
     for line in read_input('input.txt'):
         possible = True
-        game, subsets = line.split(':')
-        for subset in subsets.split(';'):
-            for pair in subset.strip().split(','):
-                count, color = pair.strip().split(' ')
-                if int(count) > bag_cubes[color]:
+        game, sets = line.split(':')
+        list_of_sets = [pair.split(' ') for pair in re.findall(color_pattern, sets)]
+        for amount, color in list_of_sets:
+            if int(amount) > bag_cubes[color]:
                     possible = False
         if possible:
             total += int(game.split(' ')[-1])
@@ -28,21 +32,18 @@ def part_1():
 def part_2():
     total = 0
     for line in read_input('input.txt'):
-        _, subsets = line.split(':')
-        list_of_sets = []
-        for subset in subsets.split(';'):
-            for pair in subset.strip().split(','):
-                list_of_sets.append(pair.strip().split(' '))
+        _, sets = line.split(':')
+        list_of_sets = [pair.split(' ') for pair in re.findall(color_pattern, sets)]
         maximums = 1
         for color in bag_cubes:
             max_amount = 0
-            for pair in list_of_sets:
-                if color == pair[1]:
-                    max_amount = max(max_amount, int(pair[0]))
+            for count, clr in list_of_sets:
+                if color == clr:
+                    max_amount = max(max_amount, int(count))
             maximums *= max_amount
         total += maximums
     print(total)
 
 
-# part_1()
+part_1()
 part_2()
