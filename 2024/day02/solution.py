@@ -1,3 +1,6 @@
+from itertools import pairwise
+
+
 def read_input(path):
     with open(path) as f:
         for line in f:
@@ -25,8 +28,30 @@ def part_1(data):
     return total
 
 
+def is_report_valid(row):
+    diffs = [b-a for a, b in pairwise(row)]
+    for diff in diffs:
+        if abs(diff) > 3 or diff == 0:
+            return False
+    increasing = all([diff > 0 for diff in diffs])
+    decreasing = all([diff < 0 for diff in diffs])
+    if not (increasing or decreasing):
+        return False
+    return True
+
+
 def part_2(data):
-    ...
+    total = 0
+    for str_report in data:
+        report = [int(s) for s in str_report.split()]
+        for i in range(len(report)):
+            report_copy = report.copy()
+            report_copy.pop(i)
+            if is_report_valid(report_copy):
+                total += 1
+                break
+    return total
 
 
 print(part_1(read_input('input.txt')))
+print(part_2(read_input('input.txt')))
